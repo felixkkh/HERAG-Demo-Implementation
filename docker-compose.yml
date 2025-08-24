@@ -1,0 +1,38 @@
+services:
+  infinity-embeddings:
+    image: michaelf34/infinity:latest
+    command: >
+      v2
+      --model-id sentence-transformers/all-MiniLM-L6-v2
+      --host 0.0.0.0
+      --port 8081
+      --batch-size 32
+    environment:
+      - INFINITY_LOG_LEVEL=info
+      - TOKENIZERS_PARALLELISM=false
+    ports:
+      - "8081:8081"
+    volumes:
+      - embeddings-cache:/app/.cache
+    restart: unless-stopped
+  infinity-reranking:
+    image: michaelf34/infinity:latest
+    command: >
+      v2
+      --model-id BAAI/bge-reranker-base
+      --url-prefix /v2
+      --host 0.0.0.0
+      --port 8082
+      --batch-size 32
+    environment:
+      - INFINITY_LOG_LEVEL=info
+      - TOKENIZERS_PARALLELISM=false
+    ports:
+      - "8082:8082"
+    volumes:
+      - reranking-cache:/app/.cache
+    restart: unless-stopped
+
+volumes:
+  embeddings-cache:
+  reranking-cache:

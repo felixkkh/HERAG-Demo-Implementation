@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.sqlite3
+*.db
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+.env.*
+*.env
+venv/
+.venv/
+
+
+# ChromaDB
+chroma/
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uv
+uv.lock
+
+# Misc
+*.bak
+*.swp
+*.tmp
+*.old
+
+# Test
+htmlcov/
+.coverage
+.cache/
+.pytest_cache/
+
+# Others
+*.idea/

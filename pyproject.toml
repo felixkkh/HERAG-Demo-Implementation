@@ -1,0 +1,19 @@
+[project]
+name = "herag-demo-implementation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb>=1.0.20",
+    "cohere>=5.17.0",
+    "docling>=2.47.0",
+    "dotenv>=0.9.9",
+    "langchain-core>=0.3.74",
+    "langchain-openai>=0.3.31",
+    "langchain[openai]>=0.3.27",
+    "langgraph>=0.6.6",
+    "openai>=1.101.0",
+    "pypdfium2>=4.30.0",
+    "tiktoken>=0.11.0",
+]
