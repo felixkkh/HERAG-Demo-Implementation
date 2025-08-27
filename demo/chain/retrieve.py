@@ -1,8 +1,8 @@
 import os
 from langchain_core.documents import Document
-from model_provider import generate_embeddings
-from vector_store import get_collection
-from logging_utils import logger
+from ..model_provider import generate_embeddings
+from ..vector_store import get_collection
+from ..logging_utils import logger
 
 
 def retrieve(state):

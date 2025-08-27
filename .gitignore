@@ -28,7 +28,7 @@ venv/
 
 # ChromaDB
 chroma/
-data/
+/data/
 
 # OS
 .DS_Store
@@ -51,3 +51,4 @@ htmlcov/
 
 # Others
 *.idea/
+evaluation/results/

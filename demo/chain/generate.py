@@ -1,4 +1,4 @@
-from model_provider import llm
+from ..model_provider import get_llm
 
 
 def generate(state):
@@ -10,7 +10,7 @@ def generate(state):
         f"User: {turn['question']}\nBot: {turn['answer']}" for turn in history
     ]) if history else ""
     prompt = f"# Context:\n{context}\n# Conversation History:\n{history_str}\n# Question: {question}\nAnswer:"
-    answer = llm.invoke(prompt)
+    answer = get_llm().invoke(prompt)
     # Append latest turn to history
     new_history = history + [{"question": question, "answer": getattr(answer, 'content', answer)}]
     return {"answer": answer, "history": new_history}

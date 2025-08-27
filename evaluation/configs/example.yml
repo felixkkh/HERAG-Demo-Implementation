@@ -1,0 +1,32 @@
+name: "example_eval"
+testset: "example"
+
+ingest_config:
+  pdf_extractor:
+#    - type: "docling"
+    - type: "pdfium"
+  chunking:
+    - type: "token_length"
+#    - type: "token_length"
+
+rag_config:
+  retrieval:
+    model:
+      - name: "sentence-transformers/all-MiniLM-L6-v2"
+        url: "http://localhost:8081"
+        key: "sk-12345678"
+#      - name: "intfloat/multilingual-e5-small"
+#        url: "http://localhost:8081"
+#        key: "sk-12345678"
+    top_k:
+      - 1
+      - 5
+      - 10
+      - 20
+  reranking:
+    enabled: false
+  generation:
+    model:
+      - name: "mistralai/mistral-small-3.2-24b-instruct:free"
+        url: "https://openrouter.ai/api/v1"
+        key: "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" 

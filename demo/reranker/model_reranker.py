@@ -1,8 +1,8 @@
 from cohere import V2RerankResponseResultsItem
 from langchain_core.documents import Document
 
-from model_provider import rerank_documents
-from reranker.reranker import Reranker
+from ..model_provider import rerank_documents
+from ..reranker.reranker import Reranker
 
 
 class ModelReranker(Reranker):

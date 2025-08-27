@@ -1,25 +1,25 @@
 import os
-from logging_utils import logger
+from ..logging_utils import logger
 
 
 # Add new rerankers here: 'type': (import_path, class_name)
 RERANKER_REGISTRY = {
-    "model": ("reranker.model_reranker", "ModelReranker"),
-    "random": ("reranker.random_reranker", "RandomReranker"),
+    "model": ("demo.reranker.model_reranker", "ModelReranker"),
+    "random": ("demo.reranker.random_reranker", "RandomReranker"),
     # Add more rerankers as needed
 }
 
-RERANKER_ENABLED = os.getenv("RERANKING_ENABLE", "false").lower() == "true"
-RERANKER_TYPE = os.getenv("RERANKING_TYPE", "model").lower()
-
 def rerank(state):
+    reranker_enabled = os.getenv("RERANKING_ENABLE", "false").lower() == "true"
+    reranker_type = os.getenv("RERANKING_TYPE", "model").lower()
+
     # Only rerank if enabled
-    if not RERANKER_ENABLED or not state.get("docs"):
+    if not reranker_enabled or not state.get("docs"):
         logger.debug("Reranking disabled, skipping.")
         return state
 
     # Select reranker from registry
-    import_path, class_name = RERANKER_REGISTRY.get(RERANKER_TYPE, RERANKER_REGISTRY["model"])
+    import_path, class_name = RERANKER_REGISTRY.get(reranker_type, RERANKER_REGISTRY["model"])
     module = __import__(import_path, fromlist=[class_name])
     reranker_cls = getattr(module, class_name)
     reranker = reranker_cls()

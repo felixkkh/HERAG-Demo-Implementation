@@ -1,6 +1,6 @@
 import pypdfium2 as pdfium
 
-from extractor.extractor import Extractor
+from ...extractor.extractor import Extractor
 
 class PdfiumPDFExtractor(Extractor):
     """

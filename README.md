@@ -3,11 +3,17 @@
 ## Ingest files
 
 ```
-uv run python demo/main.py --import
+uv run python -m demo.main --import
 ```
 
 ## Run in terminal
 
 ```
-uv run python demo/main.py
+uv run python -m demo.main
+```
+
+## Run evaluation
+
+```
+uv run python -m evaluation.main example
 ```

@@ -2,10 +2,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from extractor.pdf.pdf_extractor import PDFExtractor
-from chunker.chunker import Chunker
-from model_provider import generate_embeddings
-from vector_store import delete_collection, get_collection
+from .extractor.pdf.pdf_extractor import PDFExtractor
+from .chunker.chunker import Chunker
+from .model_provider import generate_embeddings
+from .vector_store import delete_collection, get_collection
 
 DOCS_DIR = os.environ.get("DOCS_DIR", "./data/docs")
 

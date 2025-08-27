@@ -1,5 +1,5 @@
 import random
-from reranker.reranker import Reranker
+from ..reranker.reranker import Reranker
 from langchain_core.documents import Document
 
 class RandomReranker(Reranker):

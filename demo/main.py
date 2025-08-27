@@ -2,15 +2,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import signal
-from logging_utils import logger
 
 from langgraph.graph import StateGraph, END
 from langchain_core.runnables import RunnableLambda
-from chain.state import RAGState
-from chain.retrieve import retrieve
+from .chain.state import RAGState
+from .chain.retrieve import retrieve
 
-from chain.generate import generate
-from chain.rerank import rerank
+from .chain.generate import generate
+from .chain.rerank import rerank
 import sys
 
 
@@ -34,18 +33,30 @@ def build_graph():
   graph.set_entry_point("retrieve")
   return graph.compile()
 
+# Singleton for the compiled chain
+_app = None
+def get_chain():
+  global _app
+  if _app is None:
+    _app = build_graph()
+  return _app
+
+def run_chain(question, history=None):
+  """Call the RAG chain with a question and optional history."""
+  if history is None:
+    history = []
+  app = get_chain()
+  return app.invoke({"question": question, "history": history})
+
 
 def main():
   setup_signal_handlers()
 
   # If --import is passed, run ingest instead of chatbot
   if len(sys.argv) > 1 and sys.argv[1] == "--import":
-    from ingest import ingest
+    from .ingest import ingest
     ingest()
     return
-
-  # Build the graph with state schema
-  app = build_graph()
 
   # Welcome message
   print("Welcome to the RAG terminal chat! Type 'exit' to quit or press Ctrl+C.")
@@ -63,7 +74,7 @@ def main():
       break
         
     # Invoke the chain
-    result = app.invoke({"question": question, "history": history})
+    result = run_chain(question, history)
 
     docs = result.get("docs", [])
     chunk_ids = []
